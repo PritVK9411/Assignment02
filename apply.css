@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: black;
+    color: white;
+}
+
+header {
+    background-color: darkmagenta;
+    text-align: center;
+    padding: 20px;
+}
+
+form {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+fieldset {
+    border: 2px solid purple;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+legend {
+    color: turquoise;
+    font-weight: bold;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/*CheckBox Alignment */
+input, select, textarea {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+/* Buttons*/
+fieldset label input[type="checkbox"] {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 5px;
+    cursor: pointer;
+}
+
+/* Hover */
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: turquoise;
+    color: black;
+}
+
+/* File Input */
+input[type="file"] {
+    background-color: white;
+    color: white;
+}
+
+/* TextArea */
+textarea {
+    resize: vertical;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    form {
+        width: 90%;
+    }
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 10px;
+
+}
+
+nav a {
+    text-decoration: none;
+    background-color: purple;
+    color: black;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: turquoise;
+    color: black;
+}
+
+nav a:active {
+    background-color: turquoise;
+    transform: scale(0.95);
+}
