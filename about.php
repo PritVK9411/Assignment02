@@ -11,10 +11,10 @@
 
         <header>
             <nav>
-                <a href="index.html">Home</a>
-                <a href="jobs.html">Jobs</a>
-                <a href="apply.html">Apply</a>
-                <a href="about.html">About</a>
+                <a href="index.php">Home</a>
+                <a href="jobs.php">Jobs</a>
+                <a href="apply.php">Apply</a>
+                <a href="about.php">About</a>
             </nav>
         </header>
 
