@@ -7,32 +7,54 @@ if (isset($_SESSION["username"])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HR Login</title>
-</head>
-<body>
+<?php include("includes/header.inc"); ?>
+<?php include("includes/nav.inc"); ?>
 
-<h1>HR Manager Login</h1>
+<main>
+    <section class="login-container">
 
-<form action="login_process.php" method="post">
+    <h1>Login</h1>
 
-    <p>
-        <label>Username:</label>
-        <input type="text" name="username" required>
-    </p>
+    <?php
+    if (isset($_SESSION["login_error"])) {
+        echo '<p class="error-message">'
+            . htmlspecialchars($SESSION["login_error"])
+            . '</p>';
 
-    <p>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-    </p>
+        unset($_SESSION['login_error']);
+    }
+    ?>
 
-    <p>
+    <form action="login_process.php" method="post">
+
+        <div>
+            <label for="username">Username</label>
+            <br>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required>
+        </div>
+
+        <br>
+
+        <div>
+            <label for="password">Password</label>
+            <br>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required>
+        </div>
+
+        <br>
+
         <input type="submit" value="Login">
-    </p>
+    </form>
+    </section>
+</main>
 
-</form>
+<?php include("includes/footer.inc"); ?>
 
-</body>
-</html>
