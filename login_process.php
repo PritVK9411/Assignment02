@@ -68,17 +68,14 @@ if ($row = mysqli_fetch_assoc($result)) {
     ) {
         session_regenerate_id(true);
 
-        $_SESSION["user_id"] = 
+        $_SESSION["user_id"] =
             $row["id"];
-        
-        $_SESSION["username"] = 
+
+        $_SESSION["username"] =
             $row["username"];
+
+        header("Location: manage.php");
+        exit();
     }
 }
-
-$_SESSION["login_error"] = 
-    "Invalid username or password.";
-
-header("Location: login.php");
-exit();
 ?>
