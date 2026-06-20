@@ -18,7 +18,7 @@ if (isset($_SESSION["username"])) {
     <?php
     if (isset($_SESSION["login_error"])) {
         echo '<p class="error-message">'
-            . htmlspecialchars($_SESSION["login_error"])
+            . htmlspecialchars($SESSION["login_error"])
             . '</p>';
 
         unset($_SESSION['login_error']);
