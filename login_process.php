@@ -60,19 +60,12 @@ $result = mysqli_stmt_get_result($stmt);
 
 if ($row = mysqli_fetch_assoc($result)) {
 
-    if (
-        password_verify(
-            $passwordInput,
-            $row["password"]
-        )
-    ) {
+    if ($passwordInput === $row["password"]) {
+
         session_regenerate_id(true);
 
-        $_SESSION["user_id"] =
-            $row["id"];
-
-        $_SESSION["username"] =
-            $row["username"];
+        $_SESSION["user_id"] = $row["id"];
+        $_SESSION["username"] = $row["username"];
 
         header("Location: manage.php");
         exit();
