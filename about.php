@@ -40,6 +40,15 @@ function show_contribution($contributions, $member_name) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>''
+    <meta charset="UTF-8">
+    <title>The Buddiesss</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
 <?php include("includes/header.inc"); ?>
 <?php include("includes/nav.inc"); ?>
 
@@ -47,7 +56,11 @@ function show_contribution($contributions, $member_name) {
 
 <h1>The Buddiesss - Team profile</h1>
 
+
+
 <h2>Group Information</h2>
+
+<section>
 
 <ul>
     <li>
@@ -112,6 +125,8 @@ function show_contribution($contributions, $member_name) {
         </ul>
     </li>
 </ul>
+
+</section>
 
 <h2>Team Members</h2>
 
@@ -215,6 +230,9 @@ function show_contribution($contributions, $member_name) {
 </main>
 
 <?php include("includes/footer.inc"); ?>
+
+</body>
+</html>
 
 <?php
 if ($conn) {
