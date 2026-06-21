@@ -9,7 +9,7 @@ $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html>
     <head>
         <title>Jobs - A non-profit tech organisation</title>
-        <link href="jobs.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
     </head>
 
     <body>
