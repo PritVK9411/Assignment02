@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Non-Profit Job Application">
+    <meta name="keywords" content="Nonprofit, Jobs, Volunteer, Application">
+    <meta name="author" content="Your Name">
+    <title>Apply - The Buddies™</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <h1>Join Our Non Profit Team</h1>
+    <p>Make an impact. Apply today.</p>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
+            <li><a href="apply.html">Apply</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+</header>
+
+<form action="formtest.php" method="post" enctype="multipart/form-data">
+
+    <!-- Personal Information -->
+    <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" required pattern="[A-Za-z\s\-']+"><br><br>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9+\-\s]{8,15}"><br><br>
+    </fieldset>
+
+    <!-- Position -->
+    <fieldset>
+        <legend>Position Applied For</legend>
+
+        <label for="position">Select Position:</label>
+        <select id="position" name="position" required>
+            <option value="">-- Please Select --</option>
+            <option value="it">IT Helpdesk Volunteer</option>
+            <option value="fundraising">Fundraising Officer</option>
+            <option value="social">Social Media Manager</option>
+        </select><br><br>
+
+        <label>Position Type:</label><br>
+        <label><input type="radio" name="type" value="volunteer" required> Volunteer</label>
+        <label><input type="radio" name="type" value="part-time"> Part-Time</label>
+        <label><input type="radio" name="type" value="full-time"> Full-Time</label>
+    </fieldset>
+
+    <!-- Motivation -->
+    <fieldset>
+        <legend>Motivation</legend>
+
+        <label for="motivation">Why do you want to join our organization?</label><br>
+        <textarea id="motivation" name="motivation" rows="4" cols="40" required></textarea>
+    </fieldset>
+
+    <!-- Skills -->
+    <fieldset>
+        <legend>Skills</legend>
+
+        <label><input type="checkbox" name="skills[]" value="communication"> Communication</label>
+        <label><input type="checkbox" name="skills[]" value="teamwork"> Teamwork</label>
+        <label><input type="checkbox" name="skills[]" value="leadership"> Leadership</label>
+        <label><input type="checkbox" name="skills[]" value="it-support"> IT Support</label>
+        <label><input type="checkbox" name="skills[]" value="marketing"> Marketing</label>
+    </fieldset>
+
+    <!-- Experience -->
+    <fieldset>
+        <legend>Experience</legend>
+
+        <label for="experience">Years of Experience:</label>
+        <input type="number" id="experience" name="experience" min="0" max="70" required><br><br>
+
+        <label for="description">Describe Your Experience (optional):</label><br>
+<textarea id="description" name="description" rows="4" cols="40"
+          placeholder="Briefly describe your experience (optional)"></textarea>
+    </fieldset>
+    <!-- Availability -->
+    <fieldset>
+        <legend>Availability</legend>
+
+        <label for="date">Available Start Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="time">Preferred Interview Time:</label>
+        <input type="time" id="time" name="time" required><br><br>
+
+        <label>Days Available:</label><br>
+        <label><input type="checkbox" name="days[]" value="monday"> Monday</label>
+        <label><input type="checkbox" name="days[]" value="tuesday"> Tuesday</label>
+        <label><input type="checkbox" name="days[]" value="wednesday"> Wednesday</label>
+        <label><input type="checkbox" name="days[]" value="thursday"> Thursday</label>
+        <label><input type="checkbox" name="days[]" value="friday"> Friday</label>
+        <label><input type="checkbox" name="days[]" value="weekend"> Weekend</label><br><br>
+
+        <label for="hours">Hours per week you can commit:</label>
+        <input type="number" id="hours" name="hours" min="1" max="80">
+    </fieldset>
+
+    <!-- Documents -->
+    <fieldset>
+        <legend>Upload Documents</legend>
+
+        <label for="cv">Upload CV:</label>
+        <input type="file" id="cv" name="cv" required accept=".pdf,.doc,.docx"><br><br>
+
+        <label for="coverletter">Upload Cover Letter:</label>
+        <input type="file" id="coverletter" name="coverletter" required accept=".pdf,.doc,.docx">
+    </fieldset>
+
+    <!-- Professional Links -->
+  <fieldset>
+    <legend>Professional Links</legend>
+
+    <label for="linkedin">LinkedIn Profile (optional):</label>
+    <input type="url" id="linkedin" name="linkedin" 
+           placeholder="https://linkedin.com/in/username (optional)"><br><br>
+
+    <label for="github">GitHub Profile (optional):</label>
+    <input type="url" id="github" name="github" 
+           placeholder="https://github.com/username (optional)"><br><br>
+
+    <label for="portfolio">Portfolio Website (optional):</label>
+    <input type="url" id="portfolio" name="portfolio" 
+           placeholder="https://yourportfolio.com (optional)">
+</fieldset>
+
+    <!-- References -->
+   <fieldset>
+    <legend>References</legend>
+
+    <label for="refname">Reference Name (optional):</label>
+    <input type="text" id="refname" name="refname" 
+           placeholder="Enter reference name (optional)"><br><br>
+
+    <label for="refcontact">Reference Contact (optional):</label>
+    <input type="text" id="refcontact" name="refcontact" 
+           placeholder="Email or phone (optional)">
+</fieldset>
+    <!-- Referral -->
+    <fieldset>
+        <legend>How Did You Hear About Us?</legend>
+
+        <label for="referral">Select an option:</label>
+        <select id="referral" name="referral">
+            <option value="">-- Select --</option>
+            <option value="website">Website</option>
+            <option value="social">Social Media</option>
+            <option value="friend">Friend / Referral</option>
+            <option value="event">Event</option>
+        </select>
+    </fieldset>
+
+    <!-- Contact Preference -->
+    <fieldset>
+        <legend>Preferred Contact Method</legend>
+
+        <label><input type="radio" name="contact" value="email"> Email</label>
+        <label><input type="radio" name="contact" value="phone"> Phone</label>
+    </fieldset>
+
+    <!-- Declaration -->
+    <fieldset>
+        <legend>Declaration</legend>
+
+        <label>
+            <input type="checkbox" name="consent" required>
+            I confirm that the information provided is accurate.
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="privacy" required>
+            I agree to the organization's data privacy policy.
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="background">
+            I consent to background verification if required.
+        </label>
+    </fieldset>
+
+    <br>
+    <input type="submit" value="Apply">
+    <input type="reset" value="Reset Form">
+
+</form>
+
+</body>
+</html>
+
