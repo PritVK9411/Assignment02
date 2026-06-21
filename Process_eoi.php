@@ -6,10 +6,33 @@
 //  - Blocks direct URL access (GET requests / missing fields).
 //  - All inputs trimmed, slashes stripped, HTML-escaped.
 //  - Validation is 100% server-side (apply.php has novalidate).
-//  - Uses PDO via settings.php, matching jobs.php conventions.
+//
+//  NOTE ON settings.php:
+//  settings.php defines $host, $user, $password, $database, then
+//  opens its OWN connection ($mysqli), echoes "Connected
+//  successfully!", runs a SELECT * FROM users, echoes results,
+//  and closes that connection — all as a side effect of being
+//  included. We don't want any of that here (it would print junk
+//  above our HTML and leave us with a closed connection), so we:
+//    1. Capture the output of settings.php with output buffering
+//       and discard it, so nothing leaks into our page.
+//    2. Reuse the $host/$user/$password/$database variables it
+//       defines, but open our OWN fresh mysqli connection
+//       ($conn) for this script's own use.
 // ============================================================
 
-require 'settings.php'; // provides $conn (mysqli connection)
+ob_start();          // start capturing any output settings.php produces
+require 'settings.php';
+ob_end_clean();      // discard that captured output entirely
+
+// settings.php has already closed its own $mysqli connection by this point,
+// so we open a new one here using the same credentials it defined.
+$conn = @mysqli_connect($host, $user, $password, $database);
+
+if (!$conn) {
+    // Don't expose raw connection errors to the user.
+    die('Sorry, something went wrong. Please try again later.');
+}
 
 session_start();
 
