@@ -183,6 +183,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage EOIs</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
 
 <?php include("includes/header.inc"); ?>
 <?php include("includes/nav.inc"); ?>
@@ -287,6 +295,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </main>
 
 <?php include("includes/footer.inc"); ?>
+
+</body>
+</html>
 
 <?php
 mysqli_close($conn);
