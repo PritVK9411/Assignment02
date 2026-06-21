@@ -30,8 +30,8 @@ if ($result) {
     </head>
 
     <body>
-        <?php include 'header.inc'; ?>
-        <?php include 'nav.inc'; ?>
+        <?php include 'includes/header.inc'; ?>
+        <?php include 'includes/nav.inc'; ?>
         
 
         <main>
@@ -85,6 +85,6 @@ if ($result) {
 
         </main>
 
-        <?php include 'footer.inc'; ?>
+        <?php include 'includes/footer.inc'; ?>
     </body>
 </html>
