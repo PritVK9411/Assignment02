@@ -7,7 +7,7 @@ require 'settings.php';
     <head>
         <meta charset="UTF-8">
         <title>The Buddiesss</title>
-        <link href="stles.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
     </head>
 
     <body>
