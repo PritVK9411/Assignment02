@@ -42,7 +42,7 @@ function show_contribution($contributions, $member_name) {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>''
+<head>
     <meta charset="UTF-8">
     <title>The Buddiesss</title>
     <link href="styles.css" rel="stylesheet">
