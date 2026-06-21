@@ -12,20 +12,11 @@ require 'settings.php';
 
     <body>
 
-    <header>
-        <img src="Images/logo.png" alt="Company Logo" class="logo">
-        <h1>The Buddiesss</h1>
-        <fieldset>
-            <p>Building Technology For Good</p>
-        </fieldset>
-    </header>
+    <?php include("includes/header.inc"); ?>
 
     <nav>
         <ul>
-            <a href="index.php">Home</a>
-            <a href="jobs.php">Jobs</a>
-            <a href="apply.php">apply</a>
-            <a href="about.php">About</a>
+           <?php include("includes/nav.inc"); ?>
         </ul>   
     </nav>
 
@@ -75,9 +66,7 @@ require 'settings.php';
 
 
 <footer>
-    <p>Email: <a href="mailto:J26046056@student.newinti.edu.my">info@thebuddiesss.com</a></p>
-    <p>Github: <a href="https://github.com/PritVK9411/Assignment01.git">git@thebuddiess.com</a></p>
-    <p>Jira: <a href="https://pritvk0216.atlassian.net/jira/software/projects/TB/summary">jira@thebuddiesss.com</a></p>
+    <?php include("includes/footer.inc"); ?>
 </footer>
 
     </body>

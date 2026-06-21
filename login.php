@@ -7,6 +7,15 @@ if (isset($_SESSION["username"])) {
 }
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="styles.css" rel="stylesheet">   <!-- ✅ Put it here -->
+</head>
+<body>
+
 <?php include("includes/header.inc"); ?>
 <?php include("includes/nav.inc"); ?>
 
