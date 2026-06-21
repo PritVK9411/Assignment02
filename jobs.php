@@ -1,8 +1,25 @@
 <?php
 require 'settings.php';
 
-$stmt = $pdo->query("SELECT * FROM jobs");
-$jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$conn = mysqli_connect(
+    $host,
+    $user,
+    $password,
+    $database
+);
+
+if (!$conn) {
+    die("Connection failed: ". mysqli_connect_error());
+}
+
+$sql = "SELECT * FROM jobs";
+$result = mysqli_query($conn, $sql);
+
+$jobs = [];
+
+if ($result) {
+    $jobs = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 ?>
 
 <!DOCTYPE html>
