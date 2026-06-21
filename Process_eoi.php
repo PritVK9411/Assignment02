@@ -9,7 +9,7 @@
 //  - Uses PDO via settings.php, matching jobs.php conventions.
 // ============================================================
 
-require 'settings.php'; // provides $pdo (PDO connection)
+require 'settings.php'; // provides $conn (mysqli connection)
 
 session_start();
 
@@ -360,6 +360,10 @@ if (empty($errors) && $cv_saved && $cl_saved) {
     $cv_path_rel = 'uploads/' . basename($cv_dest);
     $cl_path_rel = 'uploads/' . basename($cl_dest);
 
+    // mysqli_stmt_bind_param binds by reference, so cast values need their own variables
+    $years_experience = (int)$f['experience'];
+    $hours_per_week    = (int)$f['hours'];
+
     $referral_value     = $f['referral']    !== '' ? $f['referral']    : null;
     $otherskills_value  = $f['otherskills'] !== '' ? $f['otherskills'] : null;
     $description_value  = $f['description'] !== '' ? $f['description'] : null;
@@ -379,57 +383,80 @@ if (empty($errors) && $cv_saved && $cl_saved) {
              ref_name, ref_contact, referral_source, preferred_contact,
              consent_accurate, consent_privacy, consent_background)
             VALUES
-            (:job_reference, :first_name, :last_name, :date_of_birth, :gender, :email, :phone,
-             :street, :suburb, :state, :postcode, :skills, :other_skills,
-             :position, :position_type, :motivation, :years_experience, :experience_desc,
-             :available_from, :interview_time, :days_available, :hours_per_week,
-             :cv_path, :cover_letter_path, :linkedin_url, :github_url, :portfolio_url,
-             :ref_name, :ref_contact, :referral_source, :preferred_contact,
-             :consent_accurate, :consent_privacy, :consent_background)";
+            (?, ?, ?, ?, ?, ?, ?,
+             ?, ?, ?, ?, ?, ?,
+             ?, ?, ?, ?, ?,
+             ?, ?, ?, ?,
+             ?, ?, ?, ?, ?,
+             ?, ?, ?, ?,
+             ?, ?, ?)";
 
-        $stmt = $pdo->prepare($sql);
+        $stmt = mysqli_prepare($conn, $sql);
 
-        $stmt->execute([
-            ':job_reference'      => $f['jobref'],
-            ':first_name'         => $first_name,
-            ':last_name'          => $last_name,
-            ':date_of_birth'      => $dob_mysql,
-            ':gender'             => $f['gender'],
-            ':email'              => $f['email'],
-            ':phone'              => $f['phone'],
-            ':street'             => $f['street'],
-            ':suburb'             => $f['suburb'],
-            ':state'              => $f['state'],
-            ':postcode'           => $f['postcode'],
-            ':skills'             => $skillsStr,
-            ':other_skills'       => $otherskills_value,
-            ':position'           => $f['position'],
-            ':position_type'      => $f['type'],
-            ':motivation'         => $f['motivation'],
-            ':years_experience'   => (int)$f['experience'],
-            ':experience_desc'    => $description_value,
-            ':available_from'     => $f['date'],
-            ':interview_time'     => $f['time'],
-            ':days_available'     => $daysStr,
-            ':hours_per_week'     => (int)$f['hours'],
-            ':cv_path'            => $cv_path_rel,
-            ':cover_letter_path'  => $cl_path_rel,
-            ':linkedin_url'       => $linkedin_value,
-            ':github_url'         => $github_value,
-            ':portfolio_url'      => $portfolio_value,
-            ':ref_name'           => $refname_value,
-            ':ref_contact'        => $refcontact_value,
-            ':referral_source'    => $referral_value,
-            ':preferred_contact'  => $f['contact'],
-            ':consent_accurate'   => $f['consent'],
-            ':consent_privacy'    => $f['privacy'],
-            ':consent_background' => $f['background'],
-        ]);
+        if (!$stmt) {
+            throw new Exception('Prepare failed: ' . mysqli_error($conn));
+        }
 
-        $eoiNumber = $pdo->lastInsertId();
+        // Type string must match the 34 columns above, in order:
+        // s = string, i = integer
+        $types =
+            'sssssss' .  // job_reference, first_name, last_name, date_of_birth, gender, email, phone
+            'sssssss' .  // street, suburb, state, postcode, skills, other_skills, position
+            'sisss'   .  // position_type, motivation, years_experience(i), experience_desc, available_from
+            'ssis'    .  // interview_time, days_available, hours_per_week(i), cv_path
+            'ssss'    .  // cover_letter_path, linkedin_url, github_url, portfolio_url
+            'ssss'    .  // ref_name, ref_contact, referral_source, preferred_contact
+            'iii';       // consent_accurate(i), consent_privacy(i), consent_background(i)
+
+        mysqli_stmt_bind_param(
+            $stmt,
+            $types,
+            $f['jobref'],
+            $first_name,
+            $last_name,
+            $dob_mysql,
+            $f['gender'],
+            $f['email'],
+            $f['phone'],
+            $f['street'],
+            $f['suburb'],
+            $f['state'],
+            $f['postcode'],
+            $skillsStr,
+            $otherskills_value,
+            $f['position'],
+            $f['type'],
+            $f['motivation'],
+            $years_experience,
+            $description_value,
+            $f['date'],
+            $f['time'],
+            $daysStr,
+            $hours_per_week,
+            $cv_path_rel,
+            $cl_path_rel,
+            $linkedin_value,
+            $github_value,
+            $portfolio_value,
+            $refname_value,
+            $refcontact_value,
+            $referral_value,
+            $f['contact'],
+            $f['consent'],
+            $f['privacy'],
+            $f['background']
+        );
+
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception('Execute failed: ' . mysqli_stmt_error($stmt));
+        }
+
+        $eoiNumber = mysqli_insert_id($conn);
         $db_saved  = true;
 
-    } catch (PDOException $e) {
+        mysqli_stmt_close($stmt);
+
+    } catch (Exception $e) {
         // Never expose raw DB errors to the user
         $errors[] = 'Your application could not be saved to the database. Please try again later.';
     }
@@ -448,17 +475,8 @@ if (empty($errors) && $cv_saved && $cl_saved) {
 </head>
 <body>
 
-<header>
-  <h1>The Buddies™ — Application Result</h1>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="jobs.html">Jobs</a></li>
-      <li><a href="apply.php">Apply</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
-</header>
+<?php include("includes/header.inc"); ?>
+<?php include("includes/nav.inc"); ?>
 
 <main>
 
@@ -503,6 +521,8 @@ if (empty($errors) && $cv_saved && $cl_saved) {
 <?php endif; ?>
 
 </main>
+
+<?php include("includes/footer.inc"); ?>
 
 </body>
 </html>
