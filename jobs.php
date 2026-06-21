@@ -1,20 +1,37 @@
 <?php
 require 'settings.php';
 
-$stmt = $pdo->query("SELECT * FROM jobs");
-$jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$conn = mysqli_connect(
+    $host,
+    $user,
+    $password,
+    $database
+);
+
+if (!$conn) {
+    die("Connection failed: ". mysqli_connect_error());
+}
+
+$sql = "SELECT * FROM jobs";
+$result = mysqli_query($conn, $sql);
+
+$jobs = [];
+
+if ($result) {
+    $jobs = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
         <title>Jobs - A non-profit tech organisation</title>
-        <link href="jobs.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
     </head>
 
     <body>
-        <?php include 'header.inc'; ?>
-        <?php include 'nav.inc'; ?>
+        <?php include 'includes/header.inc'; ?>
+        <?php include 'includes/nav.inc'; ?>
         
 
         <main>
@@ -68,6 +85,6 @@ $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         </main>
 
-        <?php include 'footer.inc'; ?>
+        <?php include 'includes/footer.inc'; ?>
     </body>
 </html>
