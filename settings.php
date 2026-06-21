@@ -3,24 +3,20 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "thebuddiesss"; 
+$database = "thebuddiesss";
 
-$mysqli = new mysqli($host, $user, $password, $database);
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
+try {
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$database;charset=utf8mb4",
+        $user,
+        $password
+    );
+
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
-
-echo "Connected successfully!";
-
-// Query the 'users' table (or 'jobs', 'about', 'oei')
-$result = $mysqli->query("SELECT * FROM users");
-
-while ($row = $result->fetch_assoc()) {
-
-    echo $row['name'] . "<br>";
-}
-
-$mysqli->close();
 
 ?>
